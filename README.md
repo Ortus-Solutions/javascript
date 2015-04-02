@@ -1,6 +1,6 @@
-# Airbnb JavaScript Style Guide() {
+# Ortus JavaScript Style Guide(){
 
-*A mostly reasonable approach to JavaScript*
+This guide was re-purposed for the Ortus Solutions team from the original author **Airbnb** (https://github.com/airbnb/javascript)
 
 
 ## <a name='TOC'>Table of Contents</a>
@@ -52,8 +52,9 @@
 
     bar = 9;
 
-    console.log(foo, bar); // => 1, 9
+    console.log( foo, bar ); // => 1, 9
     ```
+  
   - **Complex**: When you access a complex type you work on a reference to its value
 
     + `object`
@@ -61,14 +62,16 @@
     + `function`
 
     ```javascript
-    var foo = [1, 2],
+    var foo = [ 1, 2 ],
         bar = foo;
 
-    bar[0] = 9;
+    bar[ 0 ] = 9;
 
-    console.log(foo[0], bar[0]); // => 9, 9
+    console.log( foo[ 0 ], bar[ 0 ]); // => 9, 9
     ```
 
+> **Please make note of the spacing and alignments.**
+> 
     **[[⬆]](#TOC)**
 
 ## <a name='objects'>Objects</a>
@@ -85,21 +88,25 @@
 
   - Don't use [reserved words](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Reserved_Words) as keys.
 
+
     ```javascript
     // bad
     var superman = {
-      class: 'superhero',
-      default: { clark: 'kent' },
-      private: true
+      class     : 'superhero',
+      default   : { clark : 'kent' },
+      private   : true
     };
 
     // good
     var superman = {
-      klass: 'superhero',
-      defaults: { clark: 'kent' },
-      hidden: true
+      klass     : 'superhero',
+      defaults  : { clark : 'kent' },
+      hidden    : true
     };
     ```
+
+> **Please make note of the spacing and alignments.**
+
     **[[⬆]](#TOC)**
 
 ## <a name='arrays'>Arrays</a>
@@ -119,15 +126,15 @@
     ```javascript
     var someStack = [];
 
-
     // bad
-    someStack[someStack.length] = 'abracadabra';
+    someStack[ someStack.length ] = 'abracadabra';
 
     // good
-    someStack.push('abracadabra');
+    someStack.push( 'abracadabra' );
     ```
 
   - When you need to copy an array use Array#slice. [jsPerf](http://jsperf.com/converting-arguments-to-an-array/7)
+
 
     ```javascript
     var len = items.length,
@@ -135,8 +142,8 @@
         i;
 
     // bad
-    for (i = 0; i < len; i++) {
-      itemsCopy[i] = items[i];
+    for( i = 0; i < len; i++ ){
+        itemsCopy[ i ] = items[ i ];
     }
 
     // good
@@ -145,36 +152,20 @@
 
   - To convert an array-like object to an array, use Array#slice.
 
-    ```javascript
-    function trigger() {
-      var args = Array.prototype.slice.call(arguments);
-      ...
-    }
-    ```
+```javascript
+function trigger(){
+    var args = Array.prototype.slice.call( arguments );
+    ...
+}
+```
 
     **[[⬆]](#TOC)**
 
 
 ## <a name='strings'>Strings</a>
 
-  - Use single quotes `''` for strings
-
-    ```javascript
-    // bad
-    var name = "Bob Parr";
-
-    // good
-    var name = 'Bob Parr';
-
-    // bad
-    var fullName = "Bob " + this.lastName;
-
-    // good
-    var fullName = 'Bob ' + this.lastName;
-    ```
-
   - Strings longer than 80 characters should be written across multiple lines using string concatenation.
-  - Note: If overused, long strings with concatenation could impact performance. [jsPerf](http://jsperf.com/ya-string-concat) & [Discussion](https://github.com/airbnb/javascript/issues/40)
+  - **Note**: If overused, long strings with concatenation could impact performance. [jsPerf](http://jsperf.com/ya-string-concat) & [Discussion](https://github.com/airbnb/javascript/issues/40)
 
     ```javascript
     // bad
@@ -205,39 +196,43 @@
         messages,
         length, i;
 
-    messages = [{
-        state: 'success',
-        message: 'This one worked.'
-    },{
-        state: 'success',
-        message: 'This one worked as well.'
-    },{
-        state: 'error',
-        message: 'This one did not work.'
-    }];
+    messages = [
+        {
+            state   : 'success',
+            message : 'This one worked.'
+        },
+        {
+            state   : 'success',
+            message : 'This one worked as well.'
+        },
+        {
+            state   : 'error',
+            message : 'This one did not work.'
+        }
+    ];
 
     length = messages.length;
 
     // bad
-    function inbox(messages) {
+    function inbox( messages ){
       items = '<ul>';
 
-      for (i = 0; i < length; i++) {
-        items += '<li>' + messages[i].message + '</li>';
+      for( i = 0; i < length; i++ ){
+        items += '<li>' + messages[ i ].message + '</li>';
       }
 
       return items + '</ul>';
     }
 
     // good
-    function inbox(messages) {
+    function inbox( messages ){
       items = [];
 
-      for (i = 0; i < length; i++) {
-        items[i] = messages[i].message;
+      for( i = 0; i < length; i++ ){
+        items[ i ] = messages[ i ].message;
       }
 
-      return '<ul><li>' + items.join('</li><li>') + '</li></ul>';
+      return '<ul><li>' + items.join( '</li><li>' ) + '</li></ul>';
     }
     ```
 
@@ -250,19 +245,19 @@
 
     ```javascript
     // anonymous function expression
-    var anonymous = function() {
+    var anonymous = function(){
       return true;
     };
 
     // named function expression
-    var named = function named() {
+    var named = function named(){
       return true;
     };
 
     // immediately-invoked function expression (IIFE)
-    (function() {
-      console.log('Welcome to the Internet. Please follow me.');
-    })();
+    ( function(){
+      console.log( 'Welcome to the Internet. Please follow me.' );
+    } )();
     ```
 
   - Never declare a function in a non-function block (if, while, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears.
@@ -270,16 +265,16 @@
 
     ```javascript
     // bad
-    if (currentUser) {
-      function test() {
-        console.log('Nope.');
+    if( currentUser ){
+      function test(){
+        console.log( 'Nope.' );
       }
     }
 
     // good
-    if (currentUser) {
-      var test = function test() {
-        console.log('Yup.');
+    if( currentUser ){
+      var test = function test(){
+        console.log( 'Yup.' );
       };
     }
     ```
@@ -288,15 +283,62 @@
 
     ```javascript
     // bad
-    function nope(name, options, arguments) {
+    function nope( name, options, arguments ){
       // ...stuff...
     }
 
     // good
-    function yup(name, options, args) {
+    function yup( name, options, args ){
       // ...stuff...
     }
     ```
+
+> **Please make note of the spacing requirements**
+
+- If you have more than 4 arguments, then break them into separate lines for readability:
+
+```javascript
+// bad
+function nope( name, options, arguments, collection, index ){
+  // ...stuff...
+}
+
+// good
+function yup( 
+    name, 
+    options, 
+    arguments,
+    collection,
+    index
+){
+  // ...stuff...
+}
+```
+
+
+- Always use JSDoc (http://en.wikipedia.org/wiki/JSDoc) style commenting on all functions including closures if necessary:
+
+```javascript
+/**
+* The hint of the function
+* @constructor
+* @deprecated
+* @see Object
+* 
+* @name The name argument
+* @options The options argument
+* @test The Test argument
+*
+* @return String
+*/
+function nope( name, options, test ){
+  // ...stuff...
+}
+
+```
+
+**Please note the space left between the method annotations and the argument annotations and the return annotations**
+
 
     **[[⬆]](#TOC)**
 
@@ -308,14 +350,14 @@
 
     ```javascript
     var luke = {
-      jedi: true,
-      age: 28
+      jedi  : true,
+      age   : 28
     };
 
-    // bad
-    var isJedi = luke['jedi'];
+    // bad, unless this is a dynamic variable
+    var isJedi = luke[ 'jedi' ];
 
-    // good
+    // good, as it is more legible
     var isJedi = luke.jedi;
     ```
 
@@ -323,15 +365,15 @@
 
     ```javascript
     var luke = {
-      jedi: true,
-      age: 28
+      jedi  : true,
+      age   : 28
     };
 
-    function getProp(prop) {
-      return luke[prop];
+    function getProp(prop){
+      return luke[ prop ];
     }
 
-    var isJedi = getProp('jedi');
+    var isJedi = getProp( 'jedi' );
     ```
 
     **[[⬆]](#TOC)**
@@ -349,7 +391,7 @@
     var superPower = new SuperPower();
     ```
 
-  - Use one `var` declaration for multiple variables and declare each variable on a newline.
+  - Use one `var` declaration for multiple variables and declare each variable on a newline. Try also to aling assignments for better readability.
 
     ```javascript
     // bad
@@ -358,9 +400,9 @@
     var dragonball = 'z';
 
     // good
-    var items = getItems(),
+    var items        = getItems(),
         goSportsTeam = true,
-        dragonball = 'z';
+        dragonball   = 'z';
     ```
 
   - Declare unassigned variables last. This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
@@ -378,72 +420,14 @@
         len;
 
     // good
-    var items = getItems(),
+    var items        = getItems(),
         goSportsTeam = true,
         dragonball,
         length,
         i;
     ```
 
-  - Assign variables at the top of their scope. This helps avoid issues with variable declaration and assignment hoisting related issues.
-
-    ```javascript
-    // bad
-    function() {
-      test();
-      console.log('doing stuff..');
-
-      //..other stuff..
-
-      var name = getName();
-
-      if (name === 'test') {
-        return false;
-      }
-
-      return name;
-    }
-
-    // good
-    function() {
-      var name = getName();
-
-      test();
-      console.log('doing stuff..');
-
-      //..other stuff..
-
-      if (name === 'test') {
-        return false;
-      }
-
-      return name;
-    }
-
-    // bad
-    function() {
-      var name = getName();
-
-      if (!arguments.length) {
-        return false;
-      }
-
-      return true;
-    }
-
-    // good
-    function() {
-      if (!arguments.length) {
-        return false;
-      }
-
-      var name = getName();
-
-      return true;
-    }
-    ```
-
-    **[[⬆]](#TOC)**
+**[[⬆]](#TOC)**
 
 
 ## <a name='hoisting'>Hoisting</a>
@@ -453,25 +437,25 @@
     ```javascript
     // we know this wouldn't work (assuming there
     // is no notDefined global variable)
-    function example() {
-      console.log(notDefined); // => throws a ReferenceError
+    function example(){
+      console.log( notDefined ); // => throws a ReferenceError
     }
 
     // creating a variable declaration after you
     // reference the variable will work due to
     // variable hoisting. Note: the assignment
     // value of `true` is not hoisted.
-    function example() {
-      console.log(declaredButNotAssigned); // => undefined
+    function example(){
+      console.log( declaredButNotAssigned ); // => undefined
       var declaredButNotAssigned = true;
     }
 
     // The interpreter is hoisting the variable
     // declaration to the top of the scope.
     // Which means our example could be rewritten as:
-    function example() {
+    function example(){
       var declaredButNotAssigned;
-      console.log(declaredButNotAssigned); // => undefined
+      console.log( declaredButNotAssigned ); // => undefined
       declaredButNotAssigned = true;
     }
     ```
@@ -479,13 +463,13 @@
   - Anonymous function expressions hoist their variable name, but not the function assignment.
 
     ```javascript
-    function example() {
-      console.log(anonymous); // => undefined
+    function example(){
+      console.log( anonymous ); // => undefined
 
       anonymous(); // => TypeError anonymous is not a function
 
-      var anonymous = function() {
-        console.log('anonymous function expression');
+      var anonymous = function(){
+        console.log( 'anonymous function expression' );
       };
     }
     ```
@@ -493,27 +477,27 @@
   - Named function expressions hoist the variable name, not the function name or the function body.
 
     ```javascript
-    function example() {
-      console.log(named); // => undefined
+    function example(){
+      console.log( named ); // => undefined
 
       named(); // => TypeError named is not a function
 
       superPower(); // => ReferenceError superPower is not defined
 
-      var named = function superPower() {
-        console.log('Flying');
+      var named = function superPower(){
+        console.log( 'Flying' );
       };
 
 
       // the same is true when the function name
       // is the same as the variable name.
-      function example() {
-        console.log(named); // => undefined
+      function example(){
+        console.log( named ); // => undefined
 
         named(); // => TypeError named is not a function
 
-        var named = function named() {
-          console.log('named');
+        var named = function named(){
+          console.log( 'named' );
         };
       }
     }
@@ -522,11 +506,11 @@
   - Function declarations hoist their name and the function body.
 
     ```javascript
-    function example() {
+    function example(){
       superPower(); // => Flying
 
-      function superPower() {
-        console.log('Flying');
+      function superPower(){
+        console.log( 'Flying' );
       }
     }
     ```
@@ -534,7 +518,6 @@
   - For more information refer to [JavaScript Scoping & Hoisting](http://www.adequatelygood.com/2010/2/JavaScript-Scoping-and-Hoisting) by [Ben Cherry](http://www.adequatelygood.com/)
 
     **[[⬆]](#TOC)**
-
 
 
 ## <a name='conditionals'>Conditional Expressions & Equality</a>
@@ -550,7 +533,7 @@
     + **Strings** evaluate to **false** if an empty string `''`, otherwise **true**
 
     ```javascript
-    if ([0]) {
+    if( [ 0 ] ){
       // true
       // An array is an object, objects evaluate to true
     }
@@ -560,22 +543,22 @@
 
     ```javascript
     // bad
-    if (name !== '') {
+    if( name !== '' ){
       // ...stuff...
     }
 
     // good
-    if (name) {
+    if( name ){
       // ...stuff...
     }
 
     // bad
-    if (collection.length > 0) {
+    if( collection.length > 0 ){
       // ...stuff...
     }
 
     // good
-    if (collection.length) {
+    if( collection.length ){
       // ...stuff...
     }
     ```
@@ -591,22 +574,23 @@
 
     ```javascript
     // bad
-    if (test)
+    if( test )
       return false;
 
     // good
-    if (test) return false;
+    if( test ) return false;
 
     // good
-    if (test) {
+    if( test ){
       return false;
     }
+    if( test ){ return false; }
 
     // bad
-    function() { return false; }
+    function(){ return false; }
 
     // good
-    function() {
+    function(){
       return false;
     }
     ```
@@ -625,7 +609,7 @@
     //
     // @param <String> tag
     // @return <Element> element
-    function make(tag) {
+    function make(tag){
 
       // ...stuff...
 
@@ -634,13 +618,13 @@
 
     // good
     /**
-     * make() returns a new element
-     * based on the passed in tag name
-     *
-     * @param <String> tag
-     * @return <Element> element
-     */
-    function make(tag) {
+    * make() returns a new element
+    * based on the passed in tag name
+    *
+    * @param <String> tag
+    * @return <Element> element
+    */
+    function make(tag){
 
       // ...stuff...
 
@@ -659,8 +643,8 @@
     var active = true;
 
     // bad
-    function getType() {
-      console.log('fetching type...');
+    function getType(){
+      console.log( 'fetching type...' );
       // set the default type to 'no type'
       var type = this._type || 'no type';
 
@@ -668,8 +652,8 @@
     }
 
     // good
-    function getType() {
-      console.log('fetching type...');
+    function getType(){
+      console.log( 'fetching type...' );
 
       // set the default type to 'no type'
       var type = this._type || 'no type';
@@ -683,7 +667,7 @@
   - Use `// FIXME:` to annotate problems
 
     ```javascript
-    function Calculator() {
+    function Calculator(){
 
       // FIXME: shouldn't use a global here
       total = 0;
@@ -694,80 +678,79 @@
 
   - Use `// TODO:` to annotate solutions to problems
 
-    ```javascript
-    function Calculator() {
+```javascript
+function Calculator(){
 
-      // TODO: total should be configurable by an options param
-      this.total = 0;
+  // TODO: total should be configurable by an options param
+  this.total = 0;
 
-      return this;
-    }
-  ```
+  return this;
+}
+```
 
     **[[⬆]](#TOC)**
 
 
 ## <a name='whitespace'>Whitespace</a>
 
-  - Use soft tabs set to 2 spaces
+- Use soft tabs set to 4 spaces
 
-    ```javascript
-    // bad
-    function() {
-    ∙∙∙∙var name;
-    }
+```javascript
+// bad
+function(){
+∙∙var name;
+}
 
-    // bad
-    function() {
-    ∙var name;
-    }
+// bad
+function(){
+∙var name;
+}
 
-    // good
-    function() {
-    ∙∙var name;
-    }
-    ```
-  - Place 1 space before the leading brace.
+// good
+function(){
+∙∙∙∙var name;
+}
+```
 
-    ```javascript
-    // bad
-    function test(){
-      console.log('test');
-    }
+- Do not put spaces before opening function braces
 
-    // good
-    function test() {
-      console.log('test');
-    }
+```javascript
+// bad
+function test() {
+  console.log( 'test' );
+}
 
-    // bad
-    dog.set('attr',{
-      age: '1 year',
-      breed: 'Bernese Mountain Dog'
-    });
+// good
+function test(){
+  console.log( 'test' );
+}
+```
+  
 
-    // good
-    dog.set('attr', {
-      age: '1 year',
-      breed: 'Bernese Mountain Dog'
-    });
-    ```
-  - Place an empty newline at the end of the file.
+- Put spaces on anything that sourrounds `{}` or `[]` or `()` for readibility. If array or collection assignments are long enough, split into multi-line assignments.
 
-    ```javascript
-    // bad
-    (function(global) {
-      // ...stuff...
-    })(this);
-    ```
+```javascript
+// bad
+function test() {
+    console.log('test');
+    i[0,3,5]
+    test = {a=1,b=2,c=3,d=4}
+}
 
-    ```javascript
-    // good
-    (function(global) {
-      // ...stuff...
-    })(this);
+// good
+function test() {
+    console.log( 'test' );
+    i[ 0, 3, 5 ];
+    test = { 
+        a = 1, 
+        b = 2,
+        c = 3,
+        d = 4
+    };
+}
+```
+  
 
-    ```
 
   - Use indentation when making long method chains.
 
@@ -843,19 +826,19 @@
 
     ```javascript
     // bad
-    (function() {
+    (function(){
       var name = 'Skywalker'
       return name
     })()
 
     // good
-    (function() {
+    (function(){
       var name = 'Skywalker';
       return name;
     })();
 
     // good
-    ;(function() {
+    ;(function(){
       var name = 'Skywalker';
       return name;
     })();
@@ -942,12 +925,12 @@
 
     ```javascript
     // bad
-    function q() {
+    function q(){
       // ...stuff...
     }
 
     // good
-    function query() {
+    function query(){
       // ..stuff..
     }
     ```
@@ -959,14 +942,14 @@
     var OBJEcttsssss = {};
     var this_is_my_object = {};
     var this-is-my-object = {};
-    function c() {};
+    function c(){};
     var u = new user({
       name: 'Bob Parr'
     });
 
     // good
     var thisIsMyObject = {};
-    function thisIsMyFunction() {};
+    function thisIsMyFunction(){};
     var user = new User({
       name: 'Bob Parr'
     });
@@ -976,7 +959,7 @@
 
     ```javascript
     // bad
-    function user(options) {
+    function user(options){
       this.name = options.name;
     }
 
@@ -985,7 +968,7 @@
     });
 
     // good
-    function User(options) {
+    function User(options){
       this.name = options.name;
     }
 
@@ -1009,25 +992,25 @@
 
     ```javascript
     // bad
-    function() {
+    function(){
       var self = this;
-      return function() {
+      return function(){
         console.log(self);
       };
     }
 
     // bad
-    function() {
+    function(){
       var that = this;
-      return function() {
+      return function(){
         console.log(that);
       };
     }
 
     // good
-    function() {
+    function(){
       var _this = this;
-      return function() {
+      return function(){
         console.log(_this);
       };
     }
@@ -1037,12 +1020,12 @@
 
     ```javascript
     // bad
-    var log = function(msg) {
+    var log = function(msg){
       console.log(msg);
     };
 
     // good
-    var log = function log(msg) {
+    var log = function log(msg){
       console.log(msg);
     };
     ```
@@ -1073,12 +1056,12 @@
 
     ```javascript
     // bad
-    if (!dragon.age()) {
+    if(!dragon.age()){
       return false;
     }
 
     // good
-    if (!dragon.hasAge()) {
+    if(!dragon.hasAge()){
       return false;
     }
     ```
@@ -1086,17 +1069,17 @@
   - It's okay to create get() and set() functions, but be consistent.
 
     ```javascript
-    function Jedi(options) {
+    function Jedi(options){
       options || (options = {});
       var lightsaber = options.lightsaber || 'blue';
       this.set('lightsaber', lightsaber);
     }
 
-    Jedi.prototype.set = function(key, val) {
+    Jedi.prototype.set = function(key, val){
       this[key] = val;
     };
 
-    Jedi.prototype.get = function(key) {
+    Jedi.prototype.get = function(key){
       return this[key];
     };
     ```
@@ -1109,27 +1092,27 @@
   - Assign methods to the prototype object, instead of overwriting the prototype with a new object. Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
 
     ```javascript
-    function Jedi() {
+    function Jedi(){
       console.log('new jedi');
     }
 
     // bad
     Jedi.prototype = {
-      fight: function fight() {
+      fight: function fight(){
         console.log('fighting');
       },
 
-      block: function block() {
+      block: function block(){
         console.log('blocking');
       }
     };
 
     // good
-    Jedi.prototype.fight = function fight() {
+    Jedi.prototype.fight = function fight(){
       console.log('fighting');
     };
 
-    Jedi.prototype.block = function block() {
+    Jedi.prototype.block = function block(){
       console.log('blocking');
     };
     ```
@@ -1138,12 +1121,12 @@
 
     ```javascript
     // bad
-    Jedi.prototype.jump = function() {
+    Jedi.prototype.jump = function(){
       this.jumping = true;
       return true;
     };
 
-    Jedi.prototype.setHeight = function(height) {
+    Jedi.prototype.setHeight = function(height){
       this.height = height;
     };
 
@@ -1152,12 +1135,12 @@
     luke.setHeight(20) // => undefined
 
     // good
-    Jedi.prototype.jump = function() {
+    Jedi.prototype.jump = function(){
       this.jumping = true;
       return this;
     };
 
-    Jedi.prototype.setHeight = function(height) {
+    Jedi.prototype.setHeight = function(height){
       this.height = height;
       return this;
     };
@@ -1172,16 +1155,16 @@
   - It's okay to write a custom toString() method, just make sure it works successfully and causes no side effects.
 
     ```javascript
-    function Jedi(options) {
+    function Jedi(options){
       options || (options = {});
       this.name = options.name || 'no name';
     }
 
-    Jedi.prototype.getName = function getName() {
+    Jedi.prototype.getName = function getName(){
       return this.name;
     };
 
-    Jedi.prototype.toString = function toString() {
+    Jedi.prototype.toString = function toString(){
       return 'Jedi - ' + this.getName();
     };
     ```
@@ -1199,7 +1182,7 @@
 
     ...
 
-    $(this).on('listingUpdated', function(e, listingId) {
+    $(this).on('listingUpdated', function(e, listingId){
       // do something with listingId
     });
     ```
@@ -1212,7 +1195,7 @@
 
     ...
 
-    $(this).on('listingUpdated', function(e, data) {
+    $(this).on('listingUpdated', function(e, data){
       // do something with data.listingId
     });
     ```
@@ -1230,16 +1213,16 @@
     ```javascript
     // fancyInput/fancyInput.js
 
-    !function(global) {
+    !function(global){
       'use strict';
 
       var previousFancyInput = global.FancyInput;
 
-      function FancyInput(options) {
+      function FancyInput(options){
         this.options = options || {};
       }
 
-      FancyInput.noConflict = function noConflict() {
+      FancyInput.noConflict = function noConflict(){
         global.FancyInput = previousFancyInput;
         return FancyInput;
       };
@@ -1267,7 +1250,7 @@
 
     ```javascript
     // bad
-    function setSidebar() {
+    function setSidebar(){
       $('.sidebar').hide();
 
       // ...stuff...
@@ -1278,7 +1261,7 @@
     }
 
     // good
-    function setSidebar() {
+    function setSidebar(){
       var $sidebar = $('.sidebar');
       $sidebar.hide();
 
@@ -1328,7 +1311,7 @@
   - **Yup.**
 
     ```javascript
-    function() {
+    function(){
       return true;
     }
     ```
